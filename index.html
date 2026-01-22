@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F5F1E8">
+    <title>Early Reader Words | ruthmade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    body {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        background: linear-gradient(135deg, #F5F1E8 0%, #E8DCC8 100%);
+        color: #4A4238;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        line-height: 2;
+        gap: 30px;
+    }
+
+    .container {
+        max-width: 800px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 60px 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(74, 66, 56, 0.15);
+        border: 3px solid rgba(184, 197, 176, 0.4);
+        text-align: center;
+    }
+
+    .story {
+        font-size: 3em;
+        color: #4A4238;
+        line-height: 1.6;
+        font-weight: normal;
+        white-space: pre-line;
+    }
+
+    .refresh-btn {
+        padding: 20px 40px;
+        font-size: 1.3em;
+        background: #B8C5B0;
+        color: #4A4238;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Arial', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(184, 197, 176, 0.3);
+    }
+
+    .refresh-btn:hover {
+        background: #8FA39A;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(184, 197, 176, 0.4);
+    }
+
+    .refresh-btn:active {
+        transform: translateY(0);
+    }
+
+    footer {
+        position: fixed;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 0.85em;
+        color: #8FA39A;
+    }
+
+    footer a {
+        color: #8FA39A;
+        text-decoration: none;
+        border-bottom: 1px solid #B8C5B0;
+    }
+
+    @media (max-width: 768px) {
+        body {
+            gap: 20px;
+        }
+
+        .container {
+            padding: 40px 30px;
+        }
+
+        .story {
+            font-size: 2.4em;
+        }
+
+        .refresh-btn {
+            font-size: 1.1em;
+            padding: 16px 32px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .story {
+            font-size: 2em;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="story" id="story">loading...</div>
+    </div>
+
+<button class="refresh-btn" onclick="showNewStory()">new words</button>
+
+<footer>
+    Made with care by <a href="https://x.com/rubyruth" target="_blank" rel="noopener">@rubyruth</a>
+</footer>
+
+<script>
+    const stories = [
+        // Trucks and cars
+        "the red truck is big",
+        "dad gets in the truck\nthe truck can go",
+        "the truck brings rocks\nit dumps them in a pit",
+        "a black van stops\nmom gets in",
+        "the cab honks at us",
+        "ten trucks sit at the shop",
+        "the dump truck tips\nrocks spill out",
+        "a red car zooms fast",
+        "dad will check his truck\nit makes a bad clunk",
+        "the truck got stuck in mud\ndad will push it",
+        "mom fills the van with gas",
+        "a cop has a fast black car",
+        "the trash truck picks up bags",
+        
+        // Planes and jets
+        "the jet is up in the sky",
+        "a big jet zooms past clouds",
+        "jets can go fast",
+        "we get on the jet\nit lifts up",
+        "the jet lands\nwe can get off",
+        "a red jet has six windows",
+        "planes can fly in the sky",
+        
+        // Trains
+        "the train runs on tracks",
+        "we sit in the train\nit chugs and chugs",
+        "the long train stops\nwe get on",
+        "a red train brings us to the next stop",
+        "the train makes a clanking sound",
+        
+        // Boats and ships
+        "a ship sails on the pond",
+        "the ship has a big red flag",
+        "we get on the ship\nit rocks and rocks",
+        "a black ship brings fish to the dock",
+        "the ship honks when it stops",
+        
+        // Buses
+        "the bus stops at the bench\nwe get on",
+        "a long bus brings kids to class",
+        "the bus honks and then it stops",
+        "mom and I sit on the bus",
+        
+        // Construction and digging
+        "the drill digs in the rocks",
+        "a man digs a big pit",
+        "the truck brings sand to the spot",
+        "we stack up blocks\nthe stack gets big",
+        "dad has a big drill\nit spins fast",
+        "a man fills the truck with gravel",
+        
+        // Animals
+        "a black cat sits on the mat",
+        "the dog runs fast\nI run with him",
+        "six ducks swim in the pond",
+        "the dog digs in the mud",
+        "a frog hops on the rocks",
+        "ducks quack at us",
+        "the cat naps on the bed",
+        
+        // Food and eating
+        "mom grills hot dogs\nthey smell good",
+        "we munch chips at lunch",
+        "dad chops a fresh red apple",
+        "I drink milk from a cup",
+        "mom makes mac and adds ham",
+        "we have grapes and plums",
+        "crack eggs in the pan",
+        
+        // Playing
+        "I kick the red ball\nit rolls fast",
+        "we toss the ball back and back",
+        "I run and then I stop",
+        "we splash in the pond",
+        "I jump off the big rock",
+        "we run to the swings",
+        "I dig in the sandbox",
+        "we hop and skip",
+        
+        // Daily activities
+        "mom picks me up\nwe go in the van",
+        "I get in the bath\nit has lots of suds",
+        "dad gets milk from the shop",
+        "we pack snacks in a bag",
+        "I brush my dogs back",
+        "mom will tuck me in bed",
+        "I pick up my blocks\nI stack them up",
+        
+        // Weather and outside
+        "the sun is hot\nwe sit in the shade",
+        "rain drops on the path\nwe jump in puddles",
+        "the wind shakes the big plants",
+        "a thick fog hides the path",
+        "the sun sets\nthe sky is pink",
+        "snowflakes land on my hat",
+        
+        // More vehicles doing things
+        "the truck brings logs\nit stacks them up",
+        "a red bus picks up mom",
+        "the jet lifts up\nit zips past",
+        "I spot a ship on the pond",
+        "a cab brings dad back",
+        "the train stops\nbell rings",
+        "trucks honk at rush time",
+        
+        // More play and fun
+        "we trek up the hill\nthen we sit at the top",
+        "I can swing on the rope",
+        "we find sticks\nwe stack them",
+        "I spot a red bug on a plant",
+        "we blow bubbles\nthey drift off",
+        "I can climb up on the big rock",
+        
+        // More animals
+        "a chipmunk dashes past us",
+        "fish swim in the tank",
+        "a robin sits on the branch",
+        "we find a snail\nit is on a rock",
+        "ants march in a line",
+        
+        // Getting around
+        "we walk to the shop\nmom brings bags",
+        "I hop up the steps",
+        "we cross the path\nthen we stop",
+        "we rush to get to the bus",
+        "mom helps me get in the van",
+        
+        // Nighttime
+        "the moon is up\nstars blink",
+        "mom shuts off the lamp",
+        "I am in bed\nI will rest",
+        "the sky is black\nI can see the moon",
+        
+        // Misc concrete actions
+        "dad fills the tank with gas",
+        "mom shuts the back hatch",
+        "I bring rocks to mom",
+        "we spot a red flag on top",
+        "dad honks when he picks us up",
+        "the clock ticks and ticks",
+        "I pick blossoms off the plant"
+    ];
+
+    function showNewStory() {
+        const randomIndex = Math.floor(Math.random() * stories.length);
+        document.getElementById('story').textContent = stories[randomIndex];
+    }
+
+    // Show a story when page loads
+    showNewStory();
+
+    // Optional: show new story when spacebar is pressed
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space') {
+            event.preventDefault();
+            showNewStory();
+        }
+    });
+</script>
+
+</body>
+</html>
